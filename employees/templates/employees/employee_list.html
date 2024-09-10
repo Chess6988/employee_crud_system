@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .current-time {
+            text-align: right;
+            font-size: 14px;
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-weight: 700;
+            font-size: 28px;
+            color: #007bff;
+            text-align: center;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .table {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table thead {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-home {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-home:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Display Current Time -->
+        <div class="current-time">
+            Current Time: {{ current_time }}
+        </div>
+
+        <h2>Employee List</h2>
+        <a href="{% url 'employee_create' %}" class="btn btn-success mb-3">Add New Employee</a>
+
+        <!-- Add Home Button -->
+        <a href="{% url 'home' %}" class="btn btn-home mb-3">Go to Home</a>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Position</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.department }}</td>
+                    <td>{{ employee.position }}</td>
+                    <td>
+                        <a href="{% url 'employee_detail' employee.pk %}" class="btn btn-info">View</a>
+                        <a href="{% url 'employee_update' employee.pk %}" class="btn btn-warning">Edit</a>
+                        <a href="{% url 'employee_delete' employee.pk %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
